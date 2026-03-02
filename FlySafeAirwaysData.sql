@@ -1,6 +1,8 @@
 USE [FLY SAFE Airways];
 GO
-insert into dbo.Airlines_Master
+
+
+INSERT into dbo.Airlines_Master(Aircode,Airline_Name)
 VALUES('9W','Jet Airways'),
       ('AI','Air India'),
       ('BA','British Airways'),
@@ -17,7 +19,7 @@ insert into dbo.Class_Master(Class_Code,Class_Name)
        ('Ex','Executive');
  GO
 
- insert into dbo.City_Master(City_Code, City_Name,Country)
+ insert into dbo.City_Master(City_Code, City_Name,City_Country)
  VALUES('Bang','Bangalore','India'),
        ('Cal','Calcutta','India'),
        ('Che','Chennai','India'),
@@ -25,7 +27,7 @@ insert into dbo.Class_Master(Class_Code,Class_Name)
        ('Mum','Mumbai','India'),
        ('NY','New York','USA');
  GO
- insert into dbo.Day_Master(Day_Code, Day_Name)
+ INSERT INTO dbo.Day_Master(Day_Code, Day_Name)
  VALUES(1,'Sunday'),
        (2,'Monday'),
        (3,'Tuesday'),
@@ -59,7 +61,7 @@ INSERT INTO dbo.Meal(Meal_Code, Meal_Name)
        ('W','Waitlist');
   GO
 
-  INSERT INTO [dbo.Airlines_Service] 
+  INSERT INTO dbo.Airlines_Service 
   VALUES('IA','CC'),
         ('IA','N'),     
         ('IA','WC'),     
@@ -74,7 +76,7 @@ INSERT INTO dbo.Meal(Meal_Code, Meal_Name)
         ('AI','WC');
 GO
 
-INSERT into [dbo.Airline_Meal](Aircode,Meal_Code)
+INSERT into dbo.Airline_Meal(Aircode,Meal_Code)
 VALUES('9W','V'),
       ('9W','NV'),
       ('AI','V'),
@@ -93,8 +95,10 @@ VALUES('9W','V'),
       ('IA','NV');
 GO
 
-INSERT INTO [dbo.Flight](Aircraft_Code, Aircode, [TYPE], Source, Destination, Category, Dep_time, Journey_hrs)
- VALUES('9W01','9W','Airbus','Cal','Che','D','15.30',3),
+
+INSERT INTO dbo.Flight(Aircraft_Code, Aircode, [TYPE], [Source], Destination, Category, Dep_time, Journey_hrs)
+ VALUES
+ ('9W01','9W','Airbus','Cal','Che','D','15.30',3),
  ('9W02','9W','Airbus','Mum','Del','D','9.30',2),
  ('9W03','9W','Airbus','Che','Mum','D','10.45',2),
  ('AI01','AI','Boeing','Cal','NY','I','2.20',18),
@@ -109,7 +113,7 @@ INSERT INTO [dbo.Flight](Aircraft_Code, Aircode, [TYPE], Source, Destination, Ca
  ('IC04','IA','Boeing','Mum','Cal','D','18.30',1);
  GO
 
- INSERT INTO [dbo.Flight_Days](Aircraft_Code,Day_Code) 
+ INSERT INTO dbo.Flight_Days(Aircraft_Code,Day_Code) 
  VALUES
       ('9W01',1),
       ('9W02',2),
@@ -132,7 +136,7 @@ INSERT INTO [dbo.Flight](Aircraft_Code, Aircode, [TYPE], Source, Destination, Ca
       ('AI03',4);
  GO
 
- INSERT INTO [dbo.Flight_Details] (Aircraft_Code,Class_Code,Fare, Seats)
+ INSERT INTO dbo.Flight_Details (Aircraft_Code,Class_Code,Fare, Seats)
  values
       ('IC01','E',3409,300),
       ('IC01','Ex',5117,150),
@@ -154,7 +158,7 @@ INSERT INTO [dbo.Flight](Aircraft_Code, Aircode, [TYPE], Source, Destination, Ca
       ('AI02','Ex',70150,175);
 GO
 
-INSERT INTO [dbo.Passenger](PNR_No,Ticket_No,[Name], Age, Sex, [PP No], [Meal Pref])
+INSERT INTO dbo.Passenger(PNR_No,Ticket_No,[Name], Age, Sex, [PP No], [Meal Pref])
 VALUES
       (1,1,'Allan Smith',45,'Male',117889,'CONNV'),
       (1,2,'Stella Smith',23,'Female',322901,'V'),
@@ -170,11 +174,11 @@ VALUES
       (5,12,'Stella Morris',27,'Female',31567,'V');
  GO     
 
- INSERT INTO [dbo.Reservation](PNR_No, Aircraft_Code,Journey_Date, Class_Code, No_Of_Seats,[Address],Contact_No,[Status]) 
+ INSERT INTO dbo.Reservation(PNR_No, Aircraft_Code,Journey_Date, Class_Code, No_Of_Seats,[Address],Contact_No,[Status]) 
  values
-      (1, '','','',2,'',3317575,'C'),
-      (1, '','','',2,'',3317575,'C'),
-      (1, '','','',2,'',3317575,'C'),
-      (1, '','','',2,'',3317575,'C'),
-      (1, '','','',2,'',3317575,'C');
+      (1, 'IC01','2001-03-15','EX',2,'25, Jose Fonte',3317575,'C'),
+      (1, 'BA02','2001-03-21','FC',2,'Pusan Road, Hidetoshi, Seoul',3317575,'C'),
+      (1, 'IC01','2001-03-15','EX',2,'11A, Avenida Merido, Coimbra',3317575,'C'),
+      (1, 'BA02','2001-03-21','E',2,'Vide, Seixal, Fidalguinhos',3317575,'C'),
+      (1, 'IC01','2001-03-15','FC',2,'Nari, Upper Saddle River, NJ',3317575,'C');
 GO

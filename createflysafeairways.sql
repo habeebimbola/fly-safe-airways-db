@@ -1,5 +1,14 @@
-USE [FLY SAFE Airways]
+Use master
 GO
+
+IF db_name(db_id(N'Fly Safe Airways')) is NULL
+BEGIN
+    CREATE DATABASE [Fly Safe Airways]
+End;
+GO
+USE [Fly Safe Airways]
+GO
+
 IF OBJECT_ID(N'Airlines_Master',N'U') IS NULL
 BEGIN
     create table [Airlines_Master]
@@ -45,8 +54,8 @@ End;
 IF object_id(N'Meal',N'U') is NULL
 BEGIN
     CREATE TABLE Meal(
-        Meal_Code VARCHAR,
-        Meal_Name VARCHAR
+        Meal_Code VARCHAR(20),
+        Meal_Name VARCHAR(50)
     
     );
 END;
@@ -54,16 +63,16 @@ END;
 IF object_id(N'Service',N'U') is NULL
 BEGIN
     CREATE TABLE Service(
-        Service_Code VARCHAR,
-        Service_Name VARCHAR
+        Service_Code VARCHAR(20),
+        Service_Name VARCHAR(50)
     )
 END;
 
 IF object_id(N'Status_Master',N'U') is NULL
 BEGIN
     CREATE TABLE Status_Master(
-        Status_Code VARCHAR, 
-        DESCRIPTION VARCHAR
+        Status_Code VARCHAR(20), 
+        DESCRIPTION VARCHAR(50)
     );
 END;
 
@@ -75,9 +84,9 @@ BEGIN
     );
  END;   
 
- IF OBJECT_ID(N'Airline_Name',N'U') IS NULL
+ IF OBJECT_ID(N'Airline_Meal',N'U') IS NULL
  BEGIN
-   CREATE TABLE Airline_Name(
+   CREATE TABLE Airline_Meal(
     Aircode char(2),
     Meal_Code VARCHAR(5)
    );
@@ -86,12 +95,13 @@ END;
 if OBJECT_ID(N'Flight',N'U') is NULL
 BEGIN
     CREATE TABLE Flight(
-        Aircraft_code VARCHAR,
-        Aircode char,
-        [Type] VARCHAR,
-        Destination VARCHAR,
-        Category VARCHAR,
-        Dep_time VARCHAR,
+        Aircraft_code VARCHAR(10),
+        Aircode char(10),
+        [Type] VARCHAR(50),
+        [Source] VARCHAR(50),
+        Destination VARCHAR(50),
+        Category VARCHAR(20),
+        Dep_time VARCHAR(30),
         Journey_hrs int
     )
 End;
@@ -99,7 +109,7 @@ End;
 if object_id(N'Flight_Days',N'U') is NULL
 BEGIN
   CREATE table Flight_Days(
-    Aircraft_code VARCHAR,
+    Aircraft_code VARCHAR(20),
     Day_Code int
   )
 End;
@@ -108,8 +118,8 @@ IF OBJECT_ID(N'Flight_Details',N'U') is NULL
 BEGIN
     CREATE TABLE Flight_Details
     (
-        Aircraft_code VARCHAR,
-        Class_Code CHAR,
+        Aircraft_code VARCHAR(20),
+        Class_Code CHAR(5),
         Fare NUMERIC,
         Seats NUMERIC
     );
