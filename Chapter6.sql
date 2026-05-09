@@ -23,12 +23,12 @@ GO
 
 /*
 ** Question 2: 
-** Display Meal names of From 'British Airways' Flight
+** Display Meal names of Meals From 'British Airways' Flight
 */
 
-SELECT Meal_Name FROM Meal
+SELECT Meal_Name 'Meal Names Of Meals Served On British Airways' FROM Meal
       WHERE Meal_Code IN( SELECT Meal_code from Airline_Meal 
-                        WHERE Aircode = (SELECT Aircode FROM Airlines_Master
+                                WHERE Aircode = (SELECT Aircode FROM Airlines_Master
                                             WHERE Airline_Name ='British Airways')
                         )
 GO  
@@ -37,24 +37,27 @@ GO
 ** Question: 3
 ** Names of Airlines That Fly From 'Mumbai'
 */
-SELECT Airline_Name FROM Airlines_Master 
-     WHERE Aircode IN (SELECT Aircode FROM Flight 
-            WHERE Source = ( SELECT City_Code FROM City_Master WHERE City_Name = 'Mumbai'
-                           )
-                      )
+SELECT Airline_Name 'Airlines That Fly From Mumbai' FROM Airlines_Master 
+                WHERE Aircode IN (SELECT Aircode FROM Flight 
+                                        WHERE Source = ( SELECT City_Code FROM City_Master 
+                                                                WHERE City_Name = 'Mumbai'
+                                                      )
+                                )
+GO                                
 /*
 ** Question: 4
 ** Average Age Of Female Passengers.
 **/                      
 
-SELECT AVG(Age) FROM Passenger WHERE Sex = 'F' OR Sex ='Female'
+SELECT AVG(Age) 'Average Age Of Female Passengers' FROM Passenger 
+        WHERE Sex = 'F' OR Sex ='Female'
 GO
 /*
 ** Question: 5
 ** Total number Passengers with booked flights.
 */
 
-SELECT COUNT(*) FROM Reservation;
+SELECT COUNT(*) 'Total Count Of Passenger With Booked Flights' FROM Reservation;
 GO
 
 /*
@@ -62,7 +65,9 @@ GO
 ** Minimum, Maximum and Average Duration of Flights to 'New York'
 */
 
-SELECT MIN(Journey_hrs) 'Minimum Duration', Max(Journey_hrs) 'Maximum Duration', AVG(Journey_hrs) 'Average Duration' FROM Flight
+SELECT MIN(Journey_hrs) 'Minimum Duration', 
+       Max(Journey_hrs) 'Maximum Duration', 
+       AVG(Journey_hrs) 'Average Duration' FROM Flight
     WHERE Destination = 'NY'
 GO
 
@@ -71,7 +76,7 @@ GO
 ** Maximum Per Aircraft For 'Economy' Class
 */
 
-SELECT Aircraft_code, MAX(Seats) FROM Flight_Details
+SELECT Aircraft_code, MAX(Seats) 'Maximum Seats For Economy Class Per Airline' FROM Flight_Details
        WHERE Class_Code = 'E'
        GROUP BY Aircraft_code
        ORDER BY Aircraft_code DESC 
@@ -82,7 +87,7 @@ GO
 ** PNR_No Distribution - Occurrence Count of PNR_NOs
 *
 */
-SELECT PNR_No, Count(Ticket_No) 'Frequency' FROM Passenger 
+SELECT PNR_No, Count(Ticket_No) 'PNR_No Frequency' FROM Passenger 
         GROUP BY PNR_NO
 GO
 
@@ -91,7 +96,7 @@ GO
 ** Question: 9
 ** Frequency Of Flights per Week
 */
-SELECT Aircraft_Code, Count(day_code) 'Frequency' FROM Flight_Days
+SELECT Aircraft_Code, Count(day_code) 'Aircraft Code Frequency' FROM Flight_Days
        GROUP BY Aircraft_code
 GO       
 
@@ -100,7 +105,7 @@ GO
 ** Aircrafts with Total Seats greater than 500
 */
 
-SELECT Aircraft_Code, SUM(seats) 'Seats Count' FROM Flight_Details
+SELECT Aircraft_Code, SUM(seats) 'Seats Count Per Aircraft' FROM Flight_Details
         GROUP BY Aircraft_code
             HAVING SUM(Seats) > 500
 GO  
@@ -110,7 +115,7 @@ GO
 ** Eldest Passenger From Each PNR_NO - Age Must Be Less Than 35
 */
 
-SELECT PNR_No, MAX(Age) FROM Passenger
+SELECT PNR_No, MAX(Age) 'Maximum Age Per PNR No Lower Than 35' FROM Passenger
        GROUP BY PNR_NO 
          HAVING MAX(Age) < 35
          ORDER BY PNR_NO
@@ -152,7 +157,9 @@ GO
 ** Total Flights Booked For 'Fly Safe Airways'
 */
 
-SELECT Aircode, Destination, COUNT(Destination) 'Total Flights Booked Per Airline, Total Flights Booked For Fly Safe Services' FROM Flight
+SELECT Aircode, Destination, COUNT(Destination) 
+                            'Total Flights Booked Per Airline, Total Flights Booked For Fly Safe Services' 
+        FROM Flight
         GROUP BY Aircode, Destination WITH ROLLUP
 GO        
 
@@ -161,7 +168,9 @@ GO
 ** Total Meals Booked By All Passengers, Total Meal Booked Per [Meal Pref] Per Sex
 */
 
-SELECT Sex, [Meal Pref], COUNT(Sex) 'Meal Prefs Per Sex And Total Meals Booked' FROM Passenger
+SELECT Sex, [Meal Pref], COUNT(Sex) 
+                        'Meal Prefs Per Sex And Total Meals Booked' 
+        FROM Passenger
         GROUP BY Sex, [Meal Pref] WITH CUBE 
 GO        
 
@@ -171,7 +180,9 @@ GO
 ** Expected Revenue Per Airline, Per Class
 */
 
-SELECT Aircraft_Code, Class_code, SUM(Fare) 'Expected Total Airline Revenue, Revenue Per Airline Per Class' FROM Flight_Details
+SELECT Aircraft_Code, Class_code, SUM(Fare) 
+                                'Expected Total Airline Revenue, Revenue Per Airline Per Class' 
+        FROM Flight_Details
         GROUP BY Aircraft_code, Class_Code WITH ROLLUP
 GO        
 
