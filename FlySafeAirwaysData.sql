@@ -177,8 +177,8 @@ VALUES
  INSERT INTO dbo.Reservation(PNR_No, Aircraft_Code,Journey_Date, Class_Code, No_Of_Seats,[Address],Contact_No,[Status]) 
  values
       (1, 'IC01','2001-03-15','EX',2,'25, Jose Fonte',3317575,'C'),
-      (1, 'BA02','2001-03-21','FC',2,'Pusan Road, Hidetoshi, Seoul',3317575,'C'),
-      (1, 'IC01','2001-03-15','EX',2,'11A, Avenida Merido, Coimbra',3317575,'C'),
-      (1, 'BA02','2001-03-21','E',2,'Vide, Seixal, Fidalguinhos',3317575,'C'),
-      (1, 'IC01','2001-03-15','FC',2,'Nari, Upper Saddle River, NJ',3317575,'C');
+      (2, 'BA02','2001-03-21','FC',3,'Pusan Road, Hidetoshi, Seoul',6453892,'C'),
+      (3, 'IC01','2001-03-15','EX',2,'11A, Avenida Merido, Coimbra',3214344,'C'),
+      (4, 'BA02','2001-03-21','E',4,'Vide, Seixal, Fidalguinhos',9430243,'R'),
+      (5, 'IC01','2001-03-15','FC',1,'Nari, Upper Saddle River, NJ',2122122,'C');
 GO
